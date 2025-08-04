@@ -12,7 +12,7 @@ Time spent: **X** hours spent in total
 
 ## Summary
 
-This document provides a summary of our project building process for our app, **Amazon What!?**
+This document provides a summary of our project building process for our app, **Kroger What!?**
 
 ## Milestone Requirements
 
