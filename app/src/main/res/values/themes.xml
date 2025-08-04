@@ -6,4 +6,47 @@
     </style>
 
     <style name="Theme.AmazonWhat" parent="Base.Theme.AmazonWhat" />
+    <style name="Title" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:textSize">36sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textColor">@color/kroger_blue</item>
+    </style>
+
+    <style name="TextTimer" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/montserrat</item>
+        <item name="android:textColor">@color/kroger_blue</item>
+    </style>
+
+    <style name="TextScore" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/montserrat</item>
+    </style>
+
+    <style name="TextBrand" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">@font/roboto</item>
+    </style>
+
+    <style name="TextPrice" parent="TextAppearance.AppCompat.Body2">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/roboto</item>
+    </style>
+
+    <style name="TextProductName" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/roboto</item>
+    </style>
+
+    <style name="TextGoal" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/montserrat</item>
+        <item name="android:textColor">@color/kroger_blue</item>
+    </style>
 </resources>
