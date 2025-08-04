@@ -6,7 +6,7 @@ Submitted by:
 - **Victor Sim**
 - **Christian Galvez**
 - **Tan Vo**
-- **Shang-Kai Wen
+- **Shang-Kai Wen**
 
 Time spent: **X** hours spent in total
 

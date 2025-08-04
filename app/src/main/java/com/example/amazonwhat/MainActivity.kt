@@ -15,6 +15,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlin.random.Random
+import android.util.Log
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
     private lateinit var rvOptions: RecyclerView
@@ -35,6 +41,11 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var targetItem: Item
     private lateinit var goal: String
+
+    private var currentAccessToken: String? = null
+    private var tokenExpiryTimeMillis: Long = 0L // Store when the token expires in milliseconds since epoch
+    private val tokenJob = Job()
+    private val tokenScope = CoroutineScope(Dispatchers.IO + tokenJob) // Scope for token operations
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -167,4 +178,55 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
+
+    /**
+     * Fetches a Kroger access token if needed (i.e., if no valid token exists).
+     * This function should be called from a coroutine.
+     * @return True if a valid token is available (either pre-existing or newly fetched), false otherwise.
+     */
+    private suspend fun ensureValidToken(): Boolean {
+        // Check if current token is valid and not about to expire (e.g., within next 60 seconds)
+        if (currentAccessToken != null && System.currentTimeMillis() < (tokenExpiryTimeMillis - 60_000)) {
+            Log.d("KrogerAuth", "Using existing valid token.")
+            return true
+        }
+
+        Log.d("KrogerAuth", "Fetching new Kroger access token...")
+        return try {
+            val authHeader = KrogerAuthClient.getBasicAuthHeaderValue()
+            val response = KrogerAuthClient.authService.getAccessToken(authorization = authHeader)
+
+            if (response.isSuccessful) {
+                val tokenResponse = response.body()
+                if (tokenResponse != null) {
+                    currentAccessToken = tokenResponse.accessToken
+                    // Calculate expiry time: current time + (expires_in seconds * 1000)
+                    tokenExpiryTimeMillis = System.currentTimeMillis() + (tokenResponse.expiresIn * 1000L)
+                    Log.i("KrogerAuth", "Successfully fetched new token. Expires in: ${tokenResponse.expiresIn}s")
+                    true
+                } else {
+                    Log.e("KrogerAuth", "Token response body is null.")
+                    currentAccessToken = null
+                    false
+                }
+            } else {
+                val errorBody = response.errorBody()?.string()
+                Log.e("KrogerAuth", "Failed to get access token. Code: ${response.code()}, Error: $errorBody")
+                currentAccessToken = null
+                false
+            }
+        } catch (e: Exception) {
+            Log.e("KrogerAuth", "Exception while fetching access token", e)
+            currentAccessToken = null
+            false
+        }
+    }
+
+// Remember to cancel the tokenJob when your Activity/ViewModel is destroyed
+// override fun onDestroy() {
+//     super.onDestroy()
+//     tokenJob.cancel()
+// }
+
 }
