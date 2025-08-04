@@ -1,6 +1,6 @@
 <!-- (This is a comment) INSTRUCTIONS: Go through this page and fill out any **bolded** entries with their correct values.-->
 
-# AND101 Milestone 2 - **Amazon What!?**
+# AND101 Milestone 2 - **Kroger What!?**
 
 Submitted by:
 - **Victor Sim**

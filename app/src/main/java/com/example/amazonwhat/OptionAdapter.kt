@@ -7,12 +7,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import kotlin.random.Random // If you use it for mock data generation here
 
 data class Item(
     val imageUrl: String,
     val brand: String,
     val name: String,
-    val price: Double
+    val price: Double,
+    val krogerProductId: String? = null // <-- ADDED/UPDATED THIS LINE
 )
 
 class OptionAdapter(
@@ -49,6 +51,8 @@ class OptionAdapter(
 
             Glide.with(itemView.context)
                 .load(item.imageUrl)
+                // .placeholder(R.drawable.ic_placeholder_image) // Still recommended
+                // .error(R.drawable.ic_error_image)           // Still recommended
                 .into(ivOptionImage)
 
             itemView.setOnClickListener {
