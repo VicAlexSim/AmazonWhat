@@ -1,5 +1,6 @@
 package com.example.amazonwhat
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.widget.ImageView
@@ -129,6 +130,12 @@ class MainActivity : AppCompatActivity() {
     private fun endGame() {
         Toast.makeText(this, "Time's up! Final Score: $score", Toast.LENGTH_LONG).show()
         // TODO: Show final score screen or restart
+        val intent = Intent(this, MenuActivity::class.java)
+        intent.putExtra("finalScore", score)
+        intent.putExtra("isStart", false) // false means button should show "Restart"
+        startActivity(intent)
+        // Close the game screen
+        finish()
     }
 
     // Mock functions
