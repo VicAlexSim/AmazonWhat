@@ -1,14 +1,12 @@
 # Group 45 - AND101 Capstone Project
 
-# Final Idea - Amazon What!?
-The game start with a random object in an Amazon store. The system then randomly generate a goal ["Higher Price", "Lower Price", "More popular", etc.] that the user have to guess. The system will give the user 3 options to pick from, in which there can be multiple correct (but never none correct). The user gain points. The game end after 30 seconds.
+# Final Idea - Kroger What!?
+The game start with a random object in a Kroger store. The system then randomly generate a goal ["Higher Price", "Lower Price", "More popular", etc.] that the user have to guess. The system will give the user 3 options to pick from, in which there can be multiple correct (but never none correct). The user gain points. The game end after 30 seconds.
   
-  - **The price is right, but Amazon** and better (with more option!)
-  - https://developer-docs.amazon.com/sp-api/reference/getpricing
-  - https://developer-docs.amazon.com/sp-api/reference/getitemreviewtrends
+  - **The price is right, but Kroger** and better (with more option!)
+  - https://api.kroger.com/v1/products?filter.term=shampoo&filter.locationId=01400943&filter.limit=20
     - Better b/c comparing more metrics
       - E.g. price, reviews, 
-    - (Could be amazon package stealer themed lmao)
 
 ## Required Component - MVP
 A scoring system. Start with one global timer.
