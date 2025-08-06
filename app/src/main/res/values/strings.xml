@@ -2,4 +2,5 @@
     <string name="app_name">AmazonWhat</string>
     <string name="start_button_text">Start</string>
     <string name="app_title">KrogerWhat?!?</string>
+    <string name="reset_highscore_button_text">Reset score</string>
 </resources>
