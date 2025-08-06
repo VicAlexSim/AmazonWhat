@@ -11,7 +11,7 @@
 
 ### Description 
 
-**Description of your app**
+KrogerWhat!? is a fun play off of *The Price is Right!* Upon starting the game, player is presented with a random object that can be found in Kroger. The system then randomly generates a goal (Higher Price or Lower Price), such that the user will then have to select the appropriate item from a list of 3. There can be multiple correct choices, but there's always a minimum of at least one correct choice. The goal of the game is to correctly guess the higher/lower priced items within the 30 second timeframe, to obtain as high a score as possible.
 
 ### App Evaluation
 
@@ -30,15 +30,15 @@
 
 Required Features:
 
-- **Buttons to allow user to select choice**
-- **Product name**
-- **Product price (hidden to user)
+- [X] **Buttons to allow user to select choice** - Shang-Kai/Tan Vo
+- [X] **API calls for product name** - Victor
+- [X] **API calls for product price (hidden to user) - Victor
 
 Stretch Features:
 
-- **Menu Screen*
-- **Product image**
-- **Scoring system**
+- [X] **Menu Screen/UI Design* - Shang-Kai/Christian/Tan Vo/Victor
+- [X] **API calls for product image** - Victor
+- [X] **Scoring system** - Tan Vo/Victor
 
 ### 2. Chosen API(s)
 
@@ -51,11 +51,11 @@ Stretch Features:
 
 Required Feature
 
-- **Button choice**
+- [X] **Button choice** - Tan Vo
   - => **If in menu, starts the game**
   - => **If in game, locks in player's choice of item that is higher/less priced**
   - ...
-- **Multiple products**
+- [X] **Multiple products** - Tan Vo
   - => **Player can see and interact with multiple product choices**
 
 ## Wireframes
