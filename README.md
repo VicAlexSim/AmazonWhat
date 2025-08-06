@@ -6,9 +6,9 @@ Submitted by:
 - **Victor Sim**
 - **Christian Galvez**
 - **Tan Vo**
-- **Shang-Kai Wen**
+- **Shang-Kai Wen
 
-Time spent: **X** hours spent in total
+Time spent: **8** hours spent in total
 
 ## Summary
 
@@ -44,7 +44,7 @@ Here's a video that demos all of the app's implemented features:
 
 <img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Demo' width='' alt='Video Demo' />
 
-VIDEO/GIF created with **Insert video tool here**
+VIDEO created with **Insert video tool here**
 
 ## Notes
 
