@@ -1,10 +1,13 @@
 // KrogerApiClient.kt
 package com.example.amazonwhat // Or your app's package name
 
+import android.content.Context
+import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.File // For Cache directory
 import java.util.concurrent.TimeUnit
 
 object KrogerApiClient {
@@ -18,22 +21,48 @@ object KrogerApiClient {
         // Use Level.BASIC for less verbosity in production.
     }
 
-    // Configure OkHttpClient
-    private val okHttpClient = OkHttpClient.Builder()
-        .addInterceptor(loggingInterceptor) // Add the logging interceptor
-        .connectTimeout(30, TimeUnit.SECONDS) // Set connection timeout
-        .readTimeout(30, TimeUnit.SECONDS)    // Set read timeout
-        .writeTimeout(30, TimeUnit.SECONDS)   // Set write timeout
-        .build()
+    private var okHttpClientInstance: OkHttpClient? = null
+    private var retrofitInstance: Retrofit? = null
 
-    // Configure Retrofit
-    private val retrofit = Retrofit.Builder()
-        .baseUrl(BASE_URL)
-        .client(okHttpClient) // Use the custom OkHttpClient
-        .addConverterFactory(GsonConverterFactory.create()) // Use Gson for JSON parsing
-        .build()
+    // Call this from your Application class or MainActivity's onCreate
+    fun initialize(context: Context) {
+        if (okHttpClientInstance == null) {
+            val applicationContext = context.applicationContext
+            val cacheSize = (10 * 1024 * 1024).toLong() // 10 MB Cache
+            // Use a specific directory within the app's cache folder for OkHttp
+            val httpCacheDirectory = File(applicationContext.cacheDir, "http-cache")
+            val cache = Cache(httpCacheDirectory, cacheSize)
 
-    // Lazily create the KrogerApiService instance
+            okHttpClientInstance = OkHttpClient.Builder()
+                .addInterceptor(loggingInterceptor)
+                .cache(cache) // Enable HTTP caching
+                .connectTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(30, TimeUnit.SECONDS)
+                .writeTimeout(30, TimeUnit.SECONDS)
+                .build()
+        }
+    }
+
+    private val client: OkHttpClient
+        get() {
+            if (okHttpClientInstance == null) {
+                throw IllegalStateException("KrogerApiClient must be initialized with context before use. Call KrogerApiClient.initialize(context).")
+            }
+            return okHttpClientInstance!!
+        }
+
+    private val retrofit: Retrofit
+        get() {
+            if (retrofitInstance == null) {
+                retrofitInstance = Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .client(client) // Use the OkHttpClient with caching
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build()
+            }
+            return retrofitInstance!!
+        }
+
     val krogerApiService: KrogerApiService by lazy {
         retrofit.create(KrogerApiService::class.java)
     }
